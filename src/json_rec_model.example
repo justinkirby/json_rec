@@ -1,0 +1,75 @@
+%% -*- mode: erlang -*-
+%%%-------------------------------------------------------------------
+%%% @author  <jkirby@voalte.com>
+%%% @copyright (C) 2011,
+%%% @doc
+%%%
+%%%  This is an example of how the json_rec_model behaviour can be
+%%%  used.
+%%%
+%%%  comments inline should explain the rest.
+%%%
+%%% @end
+%%% Created :  1 Sep 2011 by  <jkirby@voalte.com>
+%%%-------------------------------------------------------------------
+-module(json_rec_model_example).
+
+
+%% specifiy that your module is a json_rec_model. much like gen_server
+-behaviour(json_rec_model).
+
+
+%% the three functions required export
+-export([
+         init/1,
+         new/1,
+         rec/1
+        ]).
+
+%% define your record(s) that this module will work with
+-record(example, {
+          foo = 1,
+          bar = 2
+         }).
+
+-record(fizzbuzz, {
+          answer = 42
+         }).
+
+%% make these records accessible via exprecs. This is necessary in
+%% order to let json_rec move from json to #rec{} and back again for
+%% you
+-compile({parse_transform, exprecs}).
+-export_records([example, fizzbuzz]).
+
+
+
+%% when json_rec is recursing down json and encounters a dict,
+%% {struct, <<"name">>, []}, it will try to determine if that is a
+%% defined record. json_rec will call new(<<"name">>) and use that
+%% with exprecs magic to fill in the record.
+%%
+%% if you do not want to deal with json_rec do new(_) -> undefined.
+new(<<"example">>) ->
+    '#new-example'();
+
+new(<<"fizzbuzz">>) ->
+    '#new-fizzbuzz'();
+
+new(_) -> undefined.
+
+
+
+%% when json_rec is converting your data to json, it will try to
+%% determine if the tuple is a defined record. If it is, that
+%% information is used to build json dicts, otherwise the json becomes
+%% a json key:value.
+rec(#example{}) ->
+    true;
+
+rec(#fizzbuzz{}) ->
+    true;
+
+rec(_) ->
+    false.
+
