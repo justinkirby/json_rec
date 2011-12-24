@@ -1,4 +1,4 @@
--module(rest_model).
+-module(json_rec_model).
 
 -export([behaviour_info/1]).
 

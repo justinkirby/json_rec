@@ -1,0 +1,11 @@
+%%-*- mode: erlang -*-
+{application, json_rec,
+ [
+  {description, "Json to Record"},
+  {vsn, git},
+  {modules, [ json_rec ]},
+  {registered, []},
+  {applications, [ kernel, stdlib ]},
+  {mod, []},
+  {env, []}
+ ]}.
