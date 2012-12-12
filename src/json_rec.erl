@@ -226,7 +226,7 @@ module_set(Ms, Kv, Rec) ->
 
 module_rec_fields(Ms, Rec ) ->
     M = module_has_rec(Ms,Rec),
-    M:'#info-'(fields,Rec).
+    M:'#info-'(element(1, Rec)).
 
 module_get(Ms, Field, Rec) ->
     M = module_has_rec(Ms, Rec),
