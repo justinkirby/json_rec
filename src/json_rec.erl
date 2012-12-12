@@ -211,7 +211,7 @@ module_has_rec(Ms, Rec) ->
 module_has_rec([],_Rec, throw) -> throw(did_not_find_module);
 module_has_rec([],_Rec, V) -> V;
 module_has_rec([M|T],Rec, Act) ->
-    case M:rec(Rec) of
+    case M:'#is_record-'(Rec) of
         false ->
             module_has_rec(T,Rec, Act);
         true  ->
