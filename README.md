@@ -1,4 +1,4 @@
-####Making erlang record <~> json convertion easy.
+####Making erlang record <~> json conversion easy.
 
 Detailed info at [exprecs, making json usable](http://blogs.openaether.org/?p=253 "json_rec")
 
