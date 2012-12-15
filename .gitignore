@@ -1,1 +1,6 @@
+.eunit
+deps
+*.o
+*.beam
+*.plt
 ebin

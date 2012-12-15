@@ -1,5 +1,0 @@
-* TODO move unit tests to file under tests dir
-* TODO flesh out a handy readme file based on upcoming blog post.
-  The blog post has been written. this git repos is here so it can
-  point to something
-

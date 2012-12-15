@@ -21,9 +21,7 @@
 
 %% the three functions required export
 -export([
-         init/1,
-         new/1,
-         rec/1
+         new/1
         ]).
 
 %% define your record(s) that this module will work with
@@ -57,19 +55,3 @@ new(<<"fizzbuzz">>) ->
     '#new-fizzbuzz'();
 
 new(_) -> undefined.
-
-
-
-%% when json_rec is converting your data to json, it will try to
-%% determine if the tuple is a defined record. If it is, that
-%% information is used to build json dicts, otherwise the json becomes
-%% a json key:value.
-rec(#example{}) ->
-    true;
-
-rec(#fizzbuzz{}) ->
-    true;
-
-rec(_) ->
-    false.
-
