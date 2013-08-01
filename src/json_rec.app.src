@@ -5,7 +5,6 @@
   {vsn, git},
   {modules, [ json_rec ]},
   {registered, []},
-  {applications, [ kernel, stdlib ]},
-  {mod, []},
+  {applications, [ kernel, stdlib, parse_trans ]},
   {env, []}
  ]}.
