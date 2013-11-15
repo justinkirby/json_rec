@@ -37,7 +37,7 @@ simple_json_t2l_data() ->
      #simplet2l{ two = {1,2,3}}].
 unknown_json_data() ->
     ["{\"one\":1,\"two\":2}",
-     [{<<"two">>, 2},{<<"one">>,1}]].
+     [{<<"one">>, 1},{<<"two">>,2}]].
 
 deep_json_data() ->
     Simple = "{\"simple\":{\"one\":1,\"two\":2}",
