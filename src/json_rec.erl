@@ -66,6 +66,10 @@ field_value(Value, Module, _Acc) when is_tuple(Value) ->
         _M when is_atom(_M) ->
             to_json(Value,Module)
     end;
+field_value(Value, _Module, _Acc) when Value =:= null;
+                                       Value =:= false;
+                                       Value =:= true ->
+    Value;
 field_value(Value, _Module, _Acc) when is_atom(Value) ->
     list_to_binary(atom_to_list(Value));
 

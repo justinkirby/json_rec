@@ -15,9 +15,14 @@
           second = []
          }).
 
+-record(atoms, {
+          enabled,
+          disabled,
+          nulled
+          }).
 
 -compile({parse_transform, exprecs}).
--export_records([simple,simplet2l,deep]).
+-export_records([simple,simplet2l,deep,atoms]).
 -export([new/1]).
 
 new(<<"simple">>) ->
@@ -26,7 +31,13 @@ new(<<"simplet2l">>) ->
     '#new-simplet2l'();
 new(<<"deep">>) ->
     '#new-deep'();
+new(<<"atoms">>) ->
+    '#new-atoms'();
 new(_RecName) -> undefined.
+
+atoms_json_data() ->
+    ["{\"enabled\":true, \"disabled\":false, \"nulled\":null}",
+     #atoms{ enabled = true, disabled = false, nulled = null}].
 
 simple_json_data() ->
     ["{\"one\":1,\"two\":2}",
@@ -58,6 +69,10 @@ deep_deep_json_data() ->
           }
      ].
 
+atoms_test() ->
+    [Json, Rec] = atoms_json_data(),
+    NewRec = json_rec:to_rec(mochijson2:decode(Json), json_rec_tests, new(<<"atoms">>)),
+    ?assertEqual(Rec, NewRec).
 
 simple_test() ->
     [Json, Rec] = simple_json_data(),
@@ -77,6 +92,15 @@ deep_deep_test()  ->
 unknown_test() ->
     [Json, Rec] = unknown_json_data(),
     New = json_rec:to_rec(mochijson2:decode(Json),json_rec_tests,new(<<"unknown">>)),
+    ?assertEqual(Rec, New).
+
+to_json_atoms_test() ->
+    [_Json, Rec] = atoms_json_data(),
+
+    Conv = json_rec:to_json(Rec, json_rec_tests),
+    Sjson = lists:flatten(mochijson2:encode(Conv)),
+
+    New = json_rec:to_rec(mochijson2:decode(Sjson), json_rec_tests, new(<<"atoms">>)),
     ?assertEqual(Rec, New).
 
 to_json_simple_test() ->
